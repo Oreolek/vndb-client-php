@@ -1,30 +1,22 @@
 <?php
-
 namespace VndbClient;
 
-class Client
+use \Http\Client\Socket\Client as SocketClient;
+use \Http\Message\MessageFactory\GuzzleMessageFactory;
+use \Http\Client\Common\HttpMethodsClient;
+use \GuzzleHttp\Client as GuzzleClient;
+
+class VndbClient
 {
-    private $fp;
+    private $client;
     
     public function __construct()
     {
-    }
-    
-    public function isConnected()
-    {
-        if ($this->fp) {
-            return true;
-        }
-        return false;
-    }
-    
-    public function connect()
-    {
-        $this->fp = fsockopen("api.vndb.org", 19534, $errno, $errstr, 10);
-        
-        if (!$this->fp) {
-            echo "ERROR: $errstr ($errno)<br />\n";
-        }
+      $messageFactory = new GuzzleMessageFactory();
+      $options = [
+        'remote_socket' => 'api.vndb.org:19534'
+      ];
+      $this->client = new HttpMethodsClient(new SocketClient($messageFactory, $options), $messageFactory);
     }
     
     public function login($username, $password)
@@ -50,14 +42,10 @@ class Client
         if ($data) {
             $packet .= ' ' . json_encode($data);
         }
-        //echo "SENDING: [$packet]";
-        fwrite($this->fp, $packet . chr(0x04));
-        
-        $res = $this->getResponse();
-        $response = new Response();
-        
-        if ($res=='ok') {
-            $response->setType('ok');
+        $response = $this->client->get($packet);
+        var_dump($response);
+
+       /* 
         } else {
             $p = strpos($res, '{');
             if ($p>0) {
@@ -68,24 +56,9 @@ class Client
                 $data = json_decode($json, true);
                 $response->setData($data);
             }
-        }
-        return $response;
-    }
-
-    public function getResponse()
-    {
-        //echo "Waiting for response...\n";
-        $buffer = '';
-        while (!feof($this->fp)) {
-            $c = fgets($this->fp, 2);
-            if (ord($c)==0x04) {
-                //echo "Received: [$buffer]\n\n";
-                return $buffer;
-            } else {
-                $buffer .= $c;
             }
-        }
-        return null;
+        */
+        return $response;
     }
     
     public function getVisualNovelDataById($id)

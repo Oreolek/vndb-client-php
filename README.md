@@ -18,15 +18,6 @@ $res = $client->getCharacterDataById(537);
 ```
 All methods return a `VndbClient\Response` object, containing `->getType()` and `->getData()` methods to read the response.
 
-## CLI usage
-
-```
-./bin/vndb-client vndb:getbyid your_username your_password vn 5
-./bin/vndb-client vndb:getbyid your_username your_password release 5
-./bin/vndb-client vndb:getbyid your_username your_password producer 5
-./bin/vndb-client vndb:getbyid your_username your_password character 5
-```
-
 ## The VNDB Protocol
 
 For details on the workings of this API, and for a description of the returned data, please check:
