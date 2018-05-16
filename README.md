@@ -1,6 +1,6 @@
 # vndb-client-php
 
-A vndb.org client for PHP. It can be used both as a PHP library and as a stand-alone CLI tool
+A PHP client library for [vndb.org API](https://vndb.org/d11). 
 
 ## Library usage:
 
@@ -23,10 +23,6 @@ All methods return a `VndbClient\Response` object, containing `->getType()` and 
 For details on the workings of this API, and for a description of the returned data, please check:
 
         https://vndb.org/d11
-
-## Composer / Packagist
-
-The library is available on packagist.org as `joostfaassen/vndb-client-php`
 
 ## License
 
