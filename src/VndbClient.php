@@ -15,7 +15,8 @@ class VndbClient
   {
     $messageFactory = new GuzzleMessageFactory();
     $options = [
-      'remote_socket' => 'api.vndb.org:19534'
+      'remote_socket' => 'tcp://api.vndb.org:19534',
+      'timeout' => 30*1000 // 30 seconds
     ];
     $this->client = new HttpMethodsClient(new SocketClient($messageFactory, $options), $messageFactory);
   }
