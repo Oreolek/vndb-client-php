@@ -1,0 +1,11 @@
+<phpunit colors="true">
+  <testsuites>
+    <testsuite name="VNDB Test Suite">
+      <directory>.</directory>
+      <php>
+        <const name="VNDB_USERNAME" value="user" />
+        <const name="VNDB_PASSWORD" value="user" />
+      </php>
+    </testsuite>
+  </testsuites>
+</phpunit>
