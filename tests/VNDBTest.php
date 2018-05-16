@@ -1,6 +1,5 @@
 <?php
 require_once "vendor/autoload.php";
-require_once "src/VndbClient.php";
 
 use PHPUnit\Framework\TestCase;
 use VndbClient\VndbClient;
